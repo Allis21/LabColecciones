@@ -1,4 +1,4 @@
-package Taller_Colecciones.Punto1;
+package Taller_Colecciones;
 
 public class Persona implements Comparable<Persona> {
     private String nombre;
