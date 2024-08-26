@@ -2,13 +2,12 @@ package Taller_Colecciones;
 
 import java.util.*;
 
-public class Main {
+public class Main{
 
     public static void main(String[] args) {
 
         String criterio = "edad";
         String criterio2 = "nombre";
-
         List<Persona> personas = new ArrayList<>();
         Map<String, Estudiante> mapEstudiantes = new HashMap<>();
 
@@ -40,6 +39,19 @@ public class Main {
         Persona.setCriterio(criterio2);
         Collections.sort(personas);
         System.out.println("Ordenado por Nombre:  \n" + personas);
+
+        // PUNTO 2
+        String codigoBuscar = "1234";
+        TreeSet<Producto> productos = new TreeSet<>();
+        Producto producto1 = new Producto("Gaseosa", "4567");
+        Producto producto2 = new Producto("Papitas", "8900");
+        Producto producto3 = new Producto("Gomitas", "1234");
+
+        productos.add(producto1); productos.add(producto2); productos.add(producto3);
+
+        Empresa empresa = new Empresa(productos);
+        System.out.println("El producto con codigo " + codigoBuscar + " es " + empresa.buscarProducto(empresa.getProductos(), codigoBuscar).getNombre());
+
 
         // punto 3
         if(estudianteBuscado != null){
