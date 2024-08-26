@@ -12,7 +12,6 @@ public class Main {
         List<Persona> personas = new ArrayList<>();
         Map<String, Estudiante> mapEstudiantes = new HashMap<>();
 
-
         Persona persona1 = new Persona("Juan", 40, "M", "123");
         Persona persona2 = new Persona("Maria", 35, "F", "456");
         Persona persona3 = new Persona("Pedro", 36, "M", "789");
@@ -46,6 +45,24 @@ public class Main {
             System.out.println("Estudiante encontrado: " + estudianteBuscado + " con matrícula " + matriculaBuscada);
         } else {
             System.out.println("Estudiante no encontrado con matrícula " + matriculaBuscada);
+        }
+
+        List<String> elementos = new ArrayList<>();
+
+        elementos.add("Juan");
+        elementos.add("Maria");
+        elementos.add("Pedro");
+        elementos.add("Juan");
+
+        Set<String> eliminaDuplicados = new LinkedHashSet<>(elementos);
+        elementos.clear();
+        elementos.addAll(eliminaDuplicados);
+
+        // punto 5
+        ListIterator<String> listIterator = elementos.listIterator();
+        while(listIterator.hasNext()) {
+            String next = listIterator.next();
+            System.out.println("[ " + next + " ]");
         }
     }
 }
