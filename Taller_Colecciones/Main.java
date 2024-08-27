@@ -49,7 +49,7 @@ public class Main{
         productos.add(producto1); productos.add(producto2); productos.add(producto3);
 
         Empresa empresa = new Empresa(productos);
-        System.out.println("El producto con codigo " + codigoBuscar + " es " + empresa.buscarProducto(empresa.getProductos(), codigoBuscar).getNombre());
+        System.out.println("El producto con codigo " + codigoBuscar + " es " + empresa.buscarProducto(empresa.getProductos(), codigoBuscar).getCodigo());
 
 
         // PUNTO 3
@@ -128,6 +128,43 @@ public class Main{
         Stack<Object> pilaFiltrada = pilaObjectos(objectos, cumplenCondicion, 0, condicion);
         System.out.println(pilaFiltrada);
 
+        // punto 17
+        // lista de productos con HashMap
+        Map<String, String> listaProductos = new HashMap<>();
+        listaProductos.put(producto1.getCodigo(), producto1.getNombre());
+        listaProductos.put(producto2.getCodigo(), producto2.getNombre());
+        listaProductos.put(producto3.getCodigo(), producto3.getNombre());
+
+        /* HashMap = es rápido y eficiente pero no mantiene ningún orden.
+        No garantiza ningún orden en particular para las claves. Los elementos pueden aparecer en cualquier orden al iterar sobre ellos.*/
+
+        System.out.println("Lista de productos con HashMap: " + listaProductos);
+
+        // lista de productos con LinkedHashMap
+        Map<String, String> listaProductosLinked = new LinkedHashMap<>();
+        listaProductosLinked.put(producto1.getCodigo(), producto1.getNombre());
+        listaProductosLinked.put(producto2.getCodigo(), producto2.getNombre());
+        listaProductosLinked.put(producto3.getCodigo(), producto3.getNombre());
+
+        /* Mantiene el orden de inserción de los elementos.
+        Esto significa que cuando iteras sobre el LinkedHashMap, los elementos aparecerán en el mismo orden en que fueron insertados.*/
+
+        System.out.println("Lista de productos con LinkedHashMap: " + listaProductosLinked);
+
+        // lista de productos con TreeMap
+        Map<String, String> listaProductosTree = new TreeMap<>();
+        listaProductosTree.put(producto1.getCodigo(), producto1.getNombre());
+        listaProductosTree.put(producto2.getCodigo(), producto2.getNombre());
+        listaProductosTree.put(producto3.getCodigo(), producto3.getNombre());
+
+        /* TreeMap mantiene los elementos ordenados según las claves.
+         Ordena los elementos según el orden natural de las claves o un comparador personalizado si se proporciona.
+         En este caso, los productos se ordenarán alfabéticamente por su nombre.*/
+
+        System.out.println("Lista de productos con TreeMap: " + listaProductosTree);
+
+
+
     }
 
     public static Stack<Object> pilaObjectos(Stack<Object> objectos, Stack<Object> cumplenCondicion, int i, Predicate<Object> condicion){
@@ -176,18 +213,7 @@ public class Main{
 
         return mapClavesPares(mapa, mapaPar, iterator);
 
-        // punto 17
-        // lista de productos con HashMap
 
-
-        // lista de productos con LinkedHashMap
-
-
-        /*
-        HashMap es rápido y eficiente pero no mantiene ningún orden.
-        LinkedHashMap mantiene el orden de inserción.
-        TreeMap mantiene los elementos ordenados según las claves.
-        */
     }
 }
 
