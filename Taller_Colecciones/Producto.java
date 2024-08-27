@@ -1,5 +1,7 @@
 package Taller_Colecciones;
 
+import java.util.TreeSet;
+
 public class Producto implements Comparable<Producto> {
     private String nombre;
     private String codigo;
