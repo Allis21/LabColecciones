@@ -10,20 +10,18 @@ public class Main{
         String criterio = "edad";
         String criterio2 = "nombre";
         List<Persona> personas = new ArrayList<>();
-        Map<String, Estudiante> mapEstudiantes = new HashMap<>();
-
         Persona persona1 = new Persona("Juan", 16, "M", "123");
         Persona persona2 = new Persona("Maria", 35, "F", "456");
         Persona persona3 = new Persona("Pedro", 36, "M", "789");
-
         personas.add(persona1);
         personas.add(persona2);
         personas.add(persona3);
 
+
+        Map<String, Estudiante> mapEstudiantes = new HashMap<>();
         Estudiante estudiante1 = new Estudiante("Ana", 20, "F", "101", "A123");
         Estudiante estudiante2 = new Estudiante("Luis", 21, "M", "102", "A124");
         Estudiante estudiante3 = new Estudiante("Sofia", 22, "F", "103", "A125");
-
         mapEstudiantes.put(estudiante1.getMatricula(), estudiante1);
         mapEstudiantes.put(estudiante2.getMatricula(), estudiante2);
         mapEstudiantes.put(estudiante3.getMatricula(), estudiante3);
@@ -60,7 +58,6 @@ public class Main{
         }
 
         List<String> elementos = new ArrayList<>();
-
         elementos.add("Juan");
         elementos.add("Maria");
         elementos.add("Pedro");
@@ -85,7 +82,7 @@ public class Main{
             System.out.println("[ " + next + " ]");
         }
 
-        // punto 6
+        // PUNTO 6
         PriorityQueue<Tarea> tareas = new PriorityQueue<>();
         Tarea tarea1 = new Tarea("Tarea 1", 1);
         Tarea tarea2 = new Tarea("Tarea 2", 2);
@@ -101,8 +98,7 @@ public class Main{
         }
 
         // PUNTO 7
-        List<Persona> listaFiltrada = new ArrayList<>();
-        List<Persona> personasMayoresEdad = listMayoresEdad(personas, listaFiltrada, 0);
+        List<Persona> personasMayoresEdad = retornarMayoresEdad(personas);
         System.out.println("Personas Mayores de Edad: " + personasMayoresEdad);
 
         // PUNTO 8
@@ -112,10 +108,9 @@ public class Main{
         mapa.put(3, "FFFF");
         mapa.put(4, "AYFKM");
 
-        Map<Integer, String> mapaPar = new HashMap<>();
-        Iterator<Map.Entry<Integer, String>> iterator = mapa.entrySet().iterator();
-        Map<Integer, String> mapaFiltrado = mapClavesPares(mapa, mapaPar, iterator);
-        System.out.println("Mapa con Key Par: " + mapaFiltrado);
+
+       Map<Integer, String> mapaFiltrado = retornarClavesPares(mapa);
+       System.out.println("Mapa con Key Par: " + mapaFiltrado);
 
         // punto 9
         Stack<Object> objectos = new Stack<>();
@@ -123,10 +118,9 @@ public class Main{
         objectos.add(producto1);
         objectos.add(persona1);
 
-        Stack<Object> cumplenCondicion = new Stack<>();
         Predicate<Object> condicion = objeto -> objeto.getClass().equals(Estudiante.class);
-        Stack<Object> pilaFiltrada = pilaObjectos(objectos, cumplenCondicion, 0, condicion);
-        System.out.println(pilaFiltrada);
+        Stack<Object> pilaFiltrada = retornarPilaObjetos(objectos, condicion);
+        System.out.println("Pila filtrada por la condicion indicada: " + pilaFiltrada);
 
         // punto 17
         // lista de productos con HashMap
@@ -167,6 +161,12 @@ public class Main{
 
     }
 
+    public static Stack<Object> retornarPilaObjetos(Stack<Object> objectos, Predicate<Object> condicion){
+        Stack<Object> cumplenCondicion = new Stack<>();
+
+        return pilaObjectos(objectos, cumplenCondicion, 0, condicion);
+    }
+
     public static Stack<Object> pilaObjectos(Stack<Object> objectos, Stack<Object> cumplenCondicion, int i, Predicate<Object> condicion){
         if(i==objectos.size()){
             return cumplenCondicion;
@@ -188,6 +188,11 @@ public class Main{
         }
     }
 
+    public static List<Persona> retornarMayoresEdad(List<Persona> personas){
+        List<Persona> personasFiltradas = new ArrayList<>();
+        return listMayoresEdad(personas, personasFiltradas, 0);
+    }
+
     public static List<Persona> listMayoresEdad(List<Persona> personas, List<Persona> listaFiltrada, int i){
         if(i==personas.size()) {
             return listaFiltrada;
@@ -198,6 +203,13 @@ public class Main{
             listaFiltrada.add(persona);
         }
         return listMayoresEdad(personas, listaFiltrada, i+1);
+    }
+
+    public static Map<Integer, String> retornarClavesPares(Map<Integer, String> mapa){
+        Map<Integer, String> mapaPar = new HashMap<>();
+        Iterator<Map.Entry<Integer, String>> iterator = mapa.entrySet().iterator();
+
+        return mapClavesPares(mapa, mapaPar, iterator);
     }
 
     public static Map<Integer, String> mapClavesPares(Map<Integer, String> mapa, Map<Integer, String> mapaPar, Iterator<Map.Entry<Integer, String>> iterator) {
