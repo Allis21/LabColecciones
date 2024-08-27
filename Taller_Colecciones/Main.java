@@ -1,6 +1,7 @@
 package Taller_Colecciones;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Main{
 
@@ -10,7 +11,6 @@ public class Main{
         String criterio2 = "nombre";
         List<Persona> personas = new ArrayList<>();
         Map<String, Estudiante> mapEstudiantes = new HashMap<>();
-
 
         Persona persona1 = new Persona("Juan", 16, "M", "123");
         Persona persona2 = new Persona("Maria", 35, "F", "456");
@@ -85,10 +85,25 @@ public class Main{
             System.out.println("[ " + next + " ]");
         }
 
+        // punto 6
+        PriorityQueue<Tarea> tareas = new PriorityQueue<>();
+        Tarea tarea1 = new Tarea("Tarea 1", 1);
+        Tarea tarea2 = new Tarea("Tarea 2", 2);
+        Tarea tarea3 = new Tarea("Tarea 3", 3);
+
+        tareas.add(tarea3);
+        tareas.add(tarea1);
+        tareas.add(tarea2);
+
+        while (!tareas.isEmpty()) {
+            Tarea tarea = tareas.poll();
+            System.out.println(tarea);
+        }
+
         // PUNTO 7
         List<Persona> listaFiltrada = new ArrayList<>();
         List<Persona> personasMayoresEdad = listMayoresEdad(personas, listaFiltrada, 0);
-        System.out.println("Personas Mayores de Edad: "+ personasMayoresEdad);
+        System.out.println("Personas Mayores de Edad: " + personasMayoresEdad);
 
         // PUNTO 8
         Map<Integer, String> mapa = new HashMap<>();
@@ -100,7 +115,31 @@ public class Main{
         Map<Integer, String> mapaPar = new HashMap<>();
         Iterator<Map.Entry<Integer, String>> iterator = mapa.entrySet().iterator();
         Map<Integer, String> mapaFiltrado = mapClavesPares(mapa, mapaPar, iterator);
-        System.out.println("Mapa con Key Par: "+ mapaFiltrado);
+        System.out.println("Mapa con Key Par: " + mapaFiltrado);
+
+        // punto 9
+        Stack<Object> objectos = new Stack<>();
+        objectos.add(estudiante1);
+        objectos.add(producto1);
+        objectos.add(persona1);
+
+        Stack<Object> cumplenCondicion = new Stack<>();
+        Predicate<Object> condicion = objeto -> objeto.getClass().equals(Estudiante.class);
+        Stack<Object> pilaFiltrada = pilaObjectos(objectos, cumplenCondicion, 0, condicion);
+        System.out.println(pilaFiltrada);
+
+    }
+
+    public static Stack<Object> pilaObjectos(Stack<Object> objectos, Stack<Object> cumplenCondicion, int i, Predicate<Object> condicion){
+        if(i==objectos.size()){
+            return cumplenCondicion;
+        }
+
+        Object objeto = objectos.get(i);
+        if(condicion.test(objeto)){
+            cumplenCondicion.add(objeto);
+        }
+        return pilaObjectos(objectos, cumplenCondicion, i+1, condicion);
     }
 
     public static void agregarAPila(Stack<Object> stack, Object objeto){
@@ -124,18 +163,31 @@ public class Main{
         return listMayoresEdad(personas, listaFiltrada, i+1);
     }
 
-    public static Map<Integer, String> mapClavesPares(Map<Integer, String> mapa, Map<Integer, String> mapaPar, Iterator<Map.Entry<Integer, String>> iterator){
-        if(!iterator.hasNext()){
+    public static Map<Integer, String> mapClavesPares(Map<Integer, String> mapa, Map<Integer, String> mapaPar, Iterator<Map.Entry<Integer, String>> iterator) {
+        if (!iterator.hasNext()) {
             return mapaPar;
         }
 
         Map.Entry<Integer, String> siguiente = iterator.next();
 
-        if(siguiente.getKey() % 2 == 0){
+        if (siguiente.getKey() % 2 == 0) {
             mapaPar.put(siguiente.getKey(), siguiente.getValue());
         }
 
         return mapClavesPares(mapa, mapaPar, iterator);
+
+        // punto 17
+        // lista de productos con HashMap
+
+
+        // lista de productos con LinkedHashMap
+
+
+        /*
+        HashMap es rápido y eficiente pero no mantiene ningún orden.
+        LinkedHashMap mantiene el orden de inserción.
+        TreeMap mantiene los elementos ordenados según las claves.
+        */
     }
 }
 
