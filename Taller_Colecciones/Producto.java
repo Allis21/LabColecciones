@@ -26,4 +26,9 @@ public class Producto implements Comparable<Producto> {
     public int compareTo(Producto otro) {
         return this.codigo.compareTo(otro.getCodigo());
     }
+
+    @Override
+    public String toString() {
+        return "(" + nombre + ", " + codigo + ")";
+    }
 }

@@ -122,6 +122,16 @@ public class Main{
         Stack<Object> pilaFiltrada = retornarPilaObjetos(objectos, condicion);
         System.out.println("Pila filtrada por la condicion indicada: " + pilaFiltrada);
 
+        // punto 10
+        Queue<Producto> productosCola = new LinkedList<>();
+        productosCola.add(producto1);
+        productosCola.add(producto2);
+        productosCola.add(producto3);
+
+        Predicate<Producto> condicionProducto = producto -> producto.getNombre().equals("Gaseosa");
+        Queue<Producto> productosFiltrados = retornarColaProductos(productosCola, condicionProducto);
+        System.out.println("Productos filtrados por la condicion indicada: " + productosFiltrados);
+
         // punto 17
         // lista de productos con HashMap
         Map<String, String> listaProductos = new HashMap<>();
@@ -159,6 +169,23 @@ public class Main{
 
 
 
+    }
+
+    public static Queue<Producto> retornarColaProductos(Queue<Producto> productos, Predicate<Producto> condicion){
+        Queue<Producto> cumplenCondicion = new LinkedList<>();
+        return colaProductos(productos, cumplenCondicion, 0, condicion);
+    }
+
+    public static Queue<Producto> colaProductos(Queue<Producto> productos, Queue<Producto> cumplenCondicion, int i, Predicate<Producto> condicion){
+        if(i==productos.size()){
+            return cumplenCondicion;
+        }
+
+        Producto producto = productos.poll();
+        if(condicion.test(producto)){
+            cumplenCondicion.add(producto);
+        }
+        return colaProductos(productos, cumplenCondicion, i+1, condicion);
     }
 
     public static Stack<Object> retornarPilaObjetos(Stack<Object> objectos, Predicate<Object> condicion){
