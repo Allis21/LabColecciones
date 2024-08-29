@@ -18,6 +18,9 @@ public class Producto implements Comparable<Producto> {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     public String getCodigo() {
         return codigo;
     }
