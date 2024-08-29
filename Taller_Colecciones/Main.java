@@ -177,12 +177,12 @@ public class Main{
     }
 
     public static Queue<Producto> colaProductos(Queue<Producto> productos, Queue<Producto> cumplenCondicion, int i, Predicate<Producto> condicion){
-        if(i==productos.size()){
+        if(productos.isEmpty()){
             return cumplenCondicion;
         }
 
         Producto producto = productos.poll();
-        if(condicion.test(producto)){
+        if(producto != null && condicion.test(producto)){
             cumplenCondicion.add(producto);
         }
         return colaProductos(productos, cumplenCondicion, i+1, condicion);
